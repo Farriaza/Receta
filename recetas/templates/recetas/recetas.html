@@ -1,0 +1,87 @@
+{% extends "recetas/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/recetas.css' %}">
+
+<h1 class="titulo-pagina">Todas las Recetas</h1>
+
+<div class="tarjetas-container">
+    {% for receta in recetas %}
+    <div class="tarjeta">
+        {% if receta.imagen %}
+            <img src="{{ receta.imagen.url }}" alt="{{ receta.titulo }}" class="tarjeta-imagen">
+        {% else %}
+            <img src="{{ receta.imagen }}" alt="{{ receta.titulo }}" class="tarjeta-imagen">
+        {% endif %}
+
+        <div class="tarjeta-info">
+            <p class="autor">Autor: {{ receta.autor.username }}</p>
+            <p class="categoria">Categoría: {{ receta.categoria.nombre }}</p>
+            <h3>{{ receta.titulo }}</h3>
+            <p>{{ receta.descripcion|truncatechars:100 }}</p>
+            <button class="btn-detalle" onclick="abrirModal('modal-{{ receta.id }}')">Ver Detalles</button>
+        </div>
+    </div>
+
+ 
+    <!-- Modal -->
+<div id="modal-{{ receta.id }}" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar" onclick="cerrarModal('modal-{{ receta.id }}')">&times;</span>
+        <h2>{{ receta.titulo }}</h2>
+
+        {% if receta.imagen %}
+            <img src="{{ receta.imagen.url }}" alt="{{ receta.titulo }}" class="modal-imagen">
+        {% endif %}
+
+        <p><strong>Autor:</strong> {{ receta.autor.username }}</p>
+        <p><strong>Categoría:</strong> {{ receta.categoria.nombre }}</p>
+
+        <!-- Descripción -->
+        <p><strong>Descripción:</strong> {{ receta.descripcion }}</p>
+
+        <!-- Ingredientes como lista -->
+        <p><strong>Ingredientes:</strong></p>
+        <ul>
+            {% for ingrediente in receta.ingredientes.splitlines %}
+                {% if ingrediente|length > 0 %}
+                    <li>{{ ingrediente }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <!-- Pasos como lista numerada -->
+        <p><strong>Pasos:</strong></p>
+        <ol>
+            {% for paso in receta.pasos.splitlines %}
+                {% if paso|length > 0 %}
+                    <li>{{ paso }}</li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+
+    {% endfor %}
+</div>
+
+<script>
+function abrirModal(id) {
+    document.getElementById(id).style.display = "block";
+}
+
+function cerrarModal(id) {
+    document.getElementById(id).style.display = "none";
+}
+
+window.onclick = function(event) {
+    document.querySelectorAll('.modal').forEach(modal => {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+.subir-receta-container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.subir-receta-card {
+    background: var(--blanco);
+    padding: 3rem;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+/* PREVIEW */
+.receta-preview-card {
+    display: flex;
+    gap: 1.2rem;
+    background: #fafafa;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.receta-preview-card img {
+    width: 180px;
+    height: 140px;
+    object-fit: cover;
+}
+
+.preview-text {
+    padding: 1rem;
+}
+
+.preview-text h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.preview-text p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* INPUTS */
+.input-group label {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border-radius: 14px;
+    border: 1px solid #ddd;
+    background: var(--beige);
+    font-family: inherit;
+}
+
+.input-group textarea {
+    resize: none;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--rojo);
+    box-shadow: 0 0 0 3px rgba(183,28,28,0.12);
+}
+
+/* IMAGEN OPCIONES */
+.image-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .image-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .receta-preview-card {
+        flex-direction: column;
+    }
+
+    .receta-preview-card img {
+        width: 100%;
+        height: 180px;
+    }
+}

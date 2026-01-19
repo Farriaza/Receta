@@ -1,0 +1,121 @@
+.titulo-pagina {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2rem;
+}
+
+.tarjetas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.tarjeta {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+}
+
+.tarjeta-imagen {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.tarjeta-info {
+    padding: 15px;
+}
+
+.tarjeta-info h3 {
+    margin: 10px 0 5px 0;
+}
+
+.tarjeta-info p {
+    margin: 5px 0;
+}
+
+.btn-detalle {
+
+display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    color: var(--blanco);
+    text-decoration: none;
+    font-weight: 600;
+    background: var(--rojo);
+    clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+    transition: 0.3s;
+}
+
+.btn-detalle:hover {
+    background-color: #d94c5b;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.modal-contenido {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.cerrar {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cerrar:hover {
+    color: #000;
+}
+
+.modal-imagen {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+.modal-contenido ul,
+.modal-contenido ol {
+    margin: 10px 0 20px 25px;
+    padding-left: 20px;
+}
+
+.modal-contenido li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.modal-contenido p {
+    margin: 10px 0;
+    line-height: 1.5;
+}

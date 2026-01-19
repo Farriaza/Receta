@@ -1,0 +1,360 @@
+:root {
+  --rojo: #b71c1c;
+  --negro: #1c1c1c;
+  --beige: #f1e1c8;
+  --gris-texto: #555;
+}
+
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP",
+    Arial, sans-serif;
+  background: var(--beige);
+  color: var(--negro);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
+
+header {
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    url("https://e0.pxfuel.com/wallpapers/730/963/desktop-wallpaper-japan-architecture-graphy-wood-house-interior-traditional-japanese-house.jpg")
+      center/cover no-repeat;
+  background-position: 40% 58%;
+  color: white;
+  padding: 5rem 1rem 3rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 3rem;
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  font-weight: 300;
+}
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* izquierda */
+}
+
+.logo-container {
+    margin-left: 0;
+    padding-left: 20px; /* separación opcional del borde */
+}
+
+.logo {
+    max-width: 380px;
+    height: auto;
+}
+
+/* ================= HEADER ACTIONS ================= */
+
+.header-actions {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.header-actions input,
+.header-actions select {
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.header-actions button {
+  position: relative;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  background: var(--rojo);
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.25s;
+  clip-path: polygon(
+    10% 0%,
+    90% 0%,
+    100% 50%,
+    90% 100%,
+    10% 100%,
+    0% 50%
+  );
+}
+
+.header-actions button::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border: 2px solid var(--rojo);
+  clip-path: polygon(
+    10% 0%,
+    90% 0%,
+    100% 50%,
+    90% 100%,
+    10% 100%,
+    0% 50%
+  );
+  pointer-events: none;
+}
+
+.header-actions button:hover {
+  background: #8e0000;
+}
+
+/* ================= MAIN ================= */
+
+main {
+  flex: 1 0 auto;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-title h2 {
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
+
+.section-title span {
+  color: var(--rojo);
+  letter-spacing: 3px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* ================= RECETAS GRID ================= */
+
+.recetas {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.12);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  height: 180px;
+}
+
+.card-content h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.card-content p {
+  font-size: 0.9rem;
+  color: var(--gris-texto);
+  flex-grow: 1;
+}
+
+/* BOTÓN CARD */
+.card-content .btn {
+  margin-top: auto;
+  align-self: center;
+  padding: 0.5rem 1.4rem;
+  background: var(--rojo);
+  color: white;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  clip-path: polygon(
+    10% 0%,
+    90% 0%,
+    100% 50%,
+    90% 100%,
+    10% 100%,
+    0% 50%
+  );
+}
+
+.card-content .btn:hover {
+  background: #8e0000;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+  padding: 2rem;
+  background: #111;
+  color: #ccc;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+footer span {
+  color: var(--rojo);
+}
+
+/* ================= MODAL BASE ================= */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 10;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  width: 360px;
+  background: white;
+  padding: 2.2rem;
+  border-radius: 18px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.35s;
+  z-index: 20;
+}
+
+.overlay.active,
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal.active {
+  transform: translate(-50%, -50%);
+}
+
+/* ================= MODAL AUTH ================= */
+
+.modal-logo {
+  width: 70px;
+  margin-bottom: 0.6rem;
+}
+
+.modal h3 {
+  color: var(--rojo);
+  margin-bottom: 1.5rem;
+}
+
+.modal input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  margin-top: 0.9rem;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+}
+
+/* BOTÓN PRINCIPAL (SIN FLECHA) */
+.modal .btn-main {
+  margin-top: 1.6rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 14px;
+  border: none;
+  background: var(--rojo);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal .btn-main:hover {
+  background: #8e0000;
+}
+
+/* LINKS */
+.modal-links {
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+}
+
+.modal-links a,
+.modal-links button {
+  background: none;
+  border: none;
+  color: var(--rojo);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* BOTÓN CERRAR */
+.modal .btn-close {
+  margin-top: 1.5rem;
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1200px) {
+  .recetas {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .recetas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .recetas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .recetas {
+    grid-template-columns: 1fr;
+  }
+}

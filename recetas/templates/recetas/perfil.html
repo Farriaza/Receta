@@ -1,0 +1,118 @@
+{% extends "recetas/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+
+<div class="section-title">
+    <h2>Editar mi Perfil</h2>
+    <span>GESTIÓN DE IDENTIDAD GASTRONÓMICA</span>
+</div>
+
+<div class="perfil-edit-container">
+    <form method="POST"
+          action="{% url 'recetas:editar_perfil' %}"
+          enctype="multipart/form-data"
+          class="edit-form-card">
+
+        {% csrf_token %}
+
+        <!-- FOTO -->
+        <div class="edit-photo-section">
+
+            <div class="perfil-avatar-wrapper">
+                {% if perfil.foto %}
+                    <img src="{{ perfil.foto.url }}"
+                         id="preview"
+                         class="perfil-img-large"
+                         alt="Foto de perfil">
+                {% else %}
+                    <img src="{% static 'img/default-avatar.png' %}"
+                         id="preview"
+                         class="perfil-img-large"
+                         alt="Foto por defecto">
+                {% endif %}
+            </div>
+
+            <label for="foto" class="sidebar-btn">
+                Cambiar foto
+            </label>
+
+            <input type="file"
+                   id="foto"
+                   name="foto"
+                   accept="image/*"
+                   hidden
+                   onchange="previewImage(this)">
+        </div>
+
+        <!-- DATOS -->
+        <div class="edit-inputs-grid">
+
+            <div class="input-group">
+                <label>Usuario</label>
+                <input type="text"
+                       name="username"
+                       value="{{ request.user.username }}">
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email"
+                       name="email"
+                       value="{{ request.user.email }}">
+            </div>
+
+            <div class="input-group full-width">
+                <label>Biografía</label>
+                <textarea name="bio"
+                          rows="4">{{ perfil.bio }}</textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Especialidad</label>
+                <select name="especialidad">
+                    <option value="">Selecciona</option>
+                    <option value="Aficionado" {% if perfil.especialidad == "Aficionado" %}selected{% endif %}>Aficionado</option>
+                    <option value="Estudiante" {% if perfil.especialidad == "Estudiante" %}selected{% endif %}>Estudiante</option>
+                    <option value="Chef" {% if perfil.especialidad == "Chef" %}selected{% endif %}>Chef</option>
+                    <option value="Itamae" {% if perfil.especialidad == "Itamae" %}selected{% endif %}>Itamae</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Instagram</label>
+                <input type="text"
+                       name="social_link"
+                       value="{{ perfil.social_link }}">
+            </div>
+
+        </div>
+
+        <!-- BOTONES -->
+        <div class="form-actions">
+            <button type="submit" class="sidebar-btn">
+                Guardar cambios
+            </button>
+
+            <a href="{% url 'recetas:perfil' %}" class="logout-btn">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+</div>
+
+<script>
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            document.getElementById("preview").src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,229 @@
+:root {
+    --rojo: #b71c1c;
+    --rojo-hover: #8e0000;
+    --negro: #1c1c1c;
+    --negro-sidebar: #121212;
+    --beige: #e5d5ba;
+    --blanco: #f3f1ed;
+    --sidebar-width: 260px;
+    --topbar-height: 80px;
+}
+
+/* =========================
+   General
+========================= */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--beige);
+    color: var(--negro);
+    margin: 0;
+    padding: 0;
+}
+
+.titulo-pagina {
+    text-align: center;
+    font-size: 2rem;
+    margin: 20px 0 30px 0;
+    color: var(--negro);
+    font-weight: bold;
+}
+
+/* =========================
+   Contenedor del formulario
+========================= */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    padding: 25px 30px;
+    background-color: var(--blanco);
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* =========================
+   Campos del formulario
+========================= */
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--negro);
+}
+
+form input[type="text"],
+form input[type="file"],
+form input[type="url"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input[type="text"]:focus,
+form textarea:focus,
+form select:focus,
+form input[type="url"]:focus {
+    border-color: var(--rojo);
+    box-shadow: 0 0 5px rgba(183,28,28,0.3);
+    outline: none;
+}
+
+/* =========================
+   Textareas especiales
+========================= */
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* =========================
+   Botón guardar
+========================= */
+form button {
+display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    color: var(--blanco);
+    text-decoration: none;
+    font-weight: 600;
+    background: var(--rojo);
+    clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+    transition: 0.3s;
+}
+
+form button:hover {
+    background-color: var(--rojo-hover);
+}
+
+/* =========================
+   Imagen preview
+========================= */
+form img {
+    max-width: 200px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+}
+
+/* =========================
+   Mensajes de éxito/error
+========================= */
+.messages {
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.messages.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.messages.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* =========================
+   Estilos para modales
+========================= */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--blanco);
+    padding: 20px 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    max-width: 90%;
+    max-height: 80%;
+    overflow-y: auto; /* Permite scroll vertical si el contenido es largo */
+    z-index: 1000;
+}
+
+.modal h2 {
+    margin-top: 0;
+    color: var(--negro);
+}
+
+.modal p {
+    color: var(--negro);
+    line-height: 1.5rem;
+    word-wrap: break-word; /* Evita que se desborde texto largo */
+}
+
+/* Fondo oscuro detrás del modal */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 900;
+}
+
+/* =========================
+   Responsivo
+========================= */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px 15px;
+        margin: 0 15px 50px 15px;
+    }
+
+    .titulo-pagina {
+        font-size: 1.6rem;
+        margin: 15px 0 25px 0;
+    }
+
+    .modal {
+        padding: 15px 20px;
+        max-width: 95%;
+        max-height: 85%;
+    }
+
+    .modal p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo-pagina {
+        font-size: 1.4rem;
+    }
+
+    form input[type="text"],
+    form input[type="file"],
+    form input[type="url"],
+    form textarea,
+    form select {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    form button {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .modal p {
+        font-size: 0.9rem;
+    }
+}

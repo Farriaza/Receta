@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Wa no Ryori{% endblock %}</title>
+
+    <!-- CSS BASE -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+
+        <!-- LOGO -->
+        <div class="sidebar-logo">
+            <img src="{% static 'img/logo1.png' %}" alt="Wa no Ryori">
+        </div>
+
+        <!-- MENÚ -->
+        <nav class="sidebar-menu">
+            <a href="{% url 'recetas:inicio' %}" class="sidebar-btn">Inicio</a>       
+           <a href="{% url 'recetas:recetas' %}" class="sidebar-btn">Recetas</a>
+            <a href="{% url 'recetas:subir_receta' %}" class="sidebar-btn">Subir</a>
+            <a href="{% url 'recetas:panel_recetas' %}" class="sidebar-btn">Panel</a>
+        </nav>
+
+        <!-- CERRAR SESIÓN -->
+        {% if request.user.is_authenticated %}
+        <div class="sidebar-footer">
+            <a href="{% url 'recetas:cerrar_sesion' %}" class="logout-btn">
+                Cerrar sesión
+            </a>
+        </div>
+        {% endif %}
+
+    </aside>
+
+    <!-- ===== CONTENIDO ===== -->
+    <div class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="topbar-spacer"></div>
+
+            <!-- PERFIL -->
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'recetas:perfil' %}" class="profile profile-btn">
+
+                <span class="profile-name">
+                    {{ request.user.username }}
+                </span>
+
+                {% if request.user.perfil.foto %}
+                    <img
+                        src="{{ request.user.perfil.foto.url }}"
+                        alt="Perfil"
+                        class="profile-img"
+                    >
+                {% else %}
+                    <img
+                        src="{% static 'img/logo.png' %}"
+                        alt="Perfil"
+                        class="profile-img"
+                    >
+                {% endif %}
+
+            </a>
+            {% endif %}
+
+        </header>
+
+        <!-- CONTENIDO -->
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+
+    </div>
+
+</div>
+
+</body>
+</html>

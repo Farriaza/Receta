@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wa no ryōri</title>
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<!-- ================= OVERLAYS ================= -->
+<div class="overlay" id="loginOverlay"></div>
+<div class="overlay" id="registerOverlay"></div>
+
+<!-- ================= OVERLAYS ================= -->
+<div class="overlay" id="loginOverlay"></div>
+<div class="overlay" id="registerOverlay"></div>
+
+<!-- ================= LOGIN MODAL ================= -->
+<div class="modal clean-modal" id="loginModal">
+  <div class="modal-header">
+    <img src="{% static 'img/logo.png' %}" alt="Wa no ryōri" class="modal-logo">
+    <h3>Iniciar sesión</h3>
+  </div>
+
+  <form method="post" action="/login/" class="modal-form">
+    {% csrf_token %}
+
+    <input type="text" name="username" placeholder="Usuario" required>
+    <input type="password" name="password" placeholder="Contraseña" required>
+
+    <button type="submit" class="btn-main">
+      Entrar
+    </button>
+  </form>
+
+  <div class="modal-footer">
+    <a href="#" class="link">¿Olvidaste tu contraseña?</a>
+
+    <p>
+      ¿No tienes cuenta?
+      <button
+        type="button"
+        id="openRegisterFromLogin"
+        class="link-action"
+      >
+        Regístrate
+      </button>
+    </p>
+  </div>
+
+  <button type="button" id="closeLogin" class="btn-close">
+    Cerrar
+  </button>
+</div>
+
+<!-- ================= REGISTER MODAL ================= -->
+<div class="modal clean-modal" id="registerModal">
+  <div class="modal-header">
+    <img src="{% static 'img/logo.png' %}" alt="Wa no ryōri" class="modal-logo">
+    <h3>Crear cuenta</h3>
+  </div>
+
+  <form method="post" action="/registro/" class="modal-form">
+    {% csrf_token %}
+
+    <input
+      type="text"
+      name="username"
+      placeholder="Nick / Usuario"
+      required
+    >
+
+    <input
+      type="text"
+      name="full_name"
+      placeholder="Nombre completo"
+      required
+    >
+
+    <input
+      type="email"
+      name="email"
+      placeholder="Correo electrónico"
+      required
+    >
+
+    <input
+      type="password"
+      name="password1"
+      placeholder="Contraseña"
+      required
+    >
+
+    <input
+      type="password"
+      name="password2"
+      placeholder="Confirmar contraseña"
+      required
+    >
+
+    <p class="info-text">
+      Recibirás un correo para validar tu cuenta
+    </p>
+
+    <button type="submit" class="btn-main">
+      Registrarse
+    </button>
+  </form>
+
+  <div class="modal-footer">
+    <p>
+      ¿Ya tienes cuenta?
+      <button
+        type="button"
+        id="openLoginFromRegister"
+        class="link-action"
+      >
+        Iniciar sesión
+      </button>
+    </p>
+  </div>
+
+  <button type="button" id="closeRegister" class="btn-close">
+    Cerrar
+  </button>
+</div>
+
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="header-actions">
+
+    <!-- BUSCADOR -->
+    <form method="get">
+      <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Buscar receta...">
+
+      <select name="category">
+        <option value="">Todas</option>
+        {% for category in categories %}
+          <option value="{{ category.id }}"
+            {% if category.id|stringformat:"s" == request.GET.category %}
+              selected
+            {% endif %}
+          >
+            {{ category.nombre }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <button type="submit">Buscar</button>
+    </form>
+
+    <!-- USUARIO -->
+ {% if request.session.usuario_id %}
+  <span style="color:white;">Hola {{ request.session.usuario_id }}</span>
+  <a href="/logout/" class="btn-header">Cerrar sesión</a>
+{% else %}
+  <button id="openLogin">Iniciar sesión</button>
+{% endif %}
+
+  </div>
+
+  <h1>Wa no ryōri</h1>
+  <p>La esencia de la cocina.</p>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main>
+  <div class="section-title">
+    <div class="logo-container">
+    <img src="/static/img/logo.png" alt="Wa no Ryōri - Logo" class="logo">
+</div>   
+    <span>
+  Crea una cuenta y descubre todas nuestras recetas exclusivas.
+</span>
+
+  </div>
+
+  <section class="recetas">
+    {% for recipe in recipes %}
+      <article class="card">
+{% if recipe.imagen %}
+    {% if recipe.imagen|stringformat:"s"|slice:":4" == "http" %}
+        <img src="{{ recipe.imagen }}" alt="{{ recipe.titulo }}">
+    {% else %}
+        <img src="{{ recipe.imagen.url }}" alt="{{ recipe.titulo }}">
+    {% endif %}
+{% else %}
+    <img
+        src="https://images.unsplash.com/photo-1546549039-49b9a2c09b1a"
+        alt="Imagen por defecto"
+    >
+{% endif %}
+
+        <div class="card-content">
+          <h3>{{ recipe.titulo }}</h3>
+          <p>{{ recipe.descripcion|truncatechars:90 }}</p>
+
+       
+        </div>
+      </article>
+    {% empty %}
+      <p style="text-align:center; grid-column:1/-1;">
+        No hay recetas disponibles.
+      </p>
+    {% endfor %}
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  © 2026 <span>Wa no ryōri</span> · Tradición · Minimalismo · Respeto
+</footer>
+
+<!-- ================= JS ================= -->
+
+<script src="{% static 'js/auth-modals.js' %}"></script>
+
+</body>
+</html>

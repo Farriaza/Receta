@@ -1,0 +1,126 @@
+/* ================= PANEL DE EDICIÓN ================= */
+.perfil-edit-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.edit-form-card {
+    background: var(--blanco);
+    border-radius: 25px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 3rem;
+}
+
+.edit-photo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.edit-inputs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.input-group.full-width {
+    grid-column: span 2;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--negro);
+    font-size: 0.9rem;
+}
+
+.input-group input, 
+.input-group textarea, 
+.input-group select {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: var(--beige);
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--rojo);
+    box-shadow: 0 0 0 3px rgba(183, 28, 28, 0.1);
+}
+
+.form-actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+/* Ajuste para los botones en el form */
+.form-actions button {
+    border: none;
+    cursor: pointer;
+}
+.perfil-avatar-wrapper {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* ===== AVATAR PERFIL (CONTROL TOTAL) ===== */
+.perfil-avatar-wrapper {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f3f3f3;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.perfil-avatar-wrapper img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 50%;
+
+    /* 🔥 mata cualquier img global */
+    max-width: none !important;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .edit-form-card {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+    
+    .edit-inputs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .input-group.full-width {
+        grid-column: span 1;
+    }
+}

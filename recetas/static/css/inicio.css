@@ -1,0 +1,178 @@
+/* ================= GRID TARJETAS ================= */
+.recetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    margin:6px;
+    margin-bottom: 4rem; /* 🔥 separa del fondo */
+}
+
+/* ================= TARJETA ================= */
+.card {
+    background: var(--blanco);
+    border-radius: 20px;
+    overflow: hidden; /* 🔥 CLAVE para que la imagen se recorte */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+}
+
+/* ================= IMAGEN TARJETA ================= */
+/* 🔥 NO CAMBIA EL TAMAÑO DE LA TARJETA */
+.card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;       /* 🔥 adapta cualquier imagen */
+    object-position: center;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* ================= CONTENIDO ================= */
+.card-content {
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    flex-grow: 1;
+}
+
+.card-content h3 {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.card-category {
+    font-size: .75rem;
+    color: var(--rojo);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.card-content p {
+    font-size: .9rem;
+    color: #555;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;          
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.leer-mas {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: .3rem;
+
+    color: var(--rojo);
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    align-self: flex-start;
+}
+
+.leer-mas:hover {
+    text-decoration: underline;
+}
+
+/* ================= BOTÓN ================= */
+.card-content button {
+    margin-top: 1rem;
+    align-self: flex-start;
+}
+
+/* ================= MODAL OVERLAY ================= */
+.receta-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* ================= CONTENEDOR MODAL ================= */
+.receta-modal {
+    background: var(--blanco);
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    border-radius: 25px;
+    overflow: hidden; /* 🔥 evita scroll externo */
+    position: relative;
+    display: flex; /* 🔥 ya no grid */
+    flex-direction: column;
+}
+
+/* ================= OCULTAR IMAGEN DEL MODAL ================= */
+.receta-modal img {
+    display: none; /* 🔥 imagen no necesaria */
+}
+
+/* ================= CONTENIDO MODAL (SCROLL REAL) ================= */
+.modal-content {
+    padding: 2.5rem;
+    overflow-y: auto; /* 🔥 SCROLL */
+    flex: 1;
+}
+
+/* Scroll elegante */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 8px;
+}
+
+/* ================= SECCIONES ================= */
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-section {
+    margin-top: 1.5rem;
+}
+
+.modal-section h4 {
+    margin-bottom: .5rem;
+    color: var(--rojo);
+}
+
+/* ================= BOTÓN CERRAR ================= */
+.modal-close {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 800px) {
+
+    .receta-modal {
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .modal-content {
+        padding: 1.5rem;
+    }
+
+}

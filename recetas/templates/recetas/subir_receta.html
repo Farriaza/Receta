@@ -1,0 +1,134 @@
+{% extends "recetas/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/subir_receta.css' %}">
+
+<div class="section-title">
+    <h2>Subir Receta</h2>
+    <span>COMPARTE TU CREACIÓN</span>
+</div>
+
+<div class="subir-receta-container">
+
+<form method="POST"
+      enctype="multipart/form-data"
+      class="subir-receta-card">
+
+    {% csrf_token %}
+
+    <!-- PREVIEW TARJETA -->
+    <div class="receta-preview-card">
+        <img id="previewImagen"
+             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjtllDmUW27LLidMYisnlcCNsRy712fuFeZQ&s"
+             alt="Preview receta">
+        <div class="preview-text">
+            <h3 id="previewTitulo">Título de la receta</h3>
+            <p id="previewDescripcion">Descripción breve de tu receta...</p>
+        </div>
+    </div>
+
+    <!-- TITULO -->
+    <div class="input-group">
+        <label>Título</label>
+        <input type="text" name="titulo" id="titulo" required>
+    </div>
+
+    <!-- DESCRIPCIÓN -->
+    <div class="input-group">
+        <label>Descripción</label>
+        <textarea name="descripcion" id="descripcion" rows="3" required></textarea>
+    </div>
+
+    <!-- IMAGEN -->
+    <div class="image-inputs">
+
+        <div class="input-group">
+            <label>Subir imagen</label>
+            <input type="file"
+                   name="imagen_archivo"
+                   accept="image/*"
+                   onchange="previewFile(this)">
+        </div>
+
+        <div class="input-group">
+            <label>O imagen por URL</label>
+            <input type="url"
+                   name="imagen_url"
+                   placeholder="https://..."
+                   oninput="previewURL(this)">
+        </div>
+
+    </div>
+
+    <!-- INGREDIENTES -->
+    <div class="input-group">
+        <label>Ingredientes</label>
+        <textarea name="ingredientes"
+                  rows="4"
+                  placeholder="Ej: 2 huevos, 1 taza de harina..."
+                  required></textarea>
+    </div>
+
+    <!-- INSTRUCCIONES -->
+    <div class="input-group">
+        <label>Instrucciones</label>
+        <textarea name="instrucciones"
+                  rows="6"
+                  placeholder="Describe paso a paso..."
+                  required></textarea>
+    </div>
+
+    <!-- CATEGORIA -->
+    <div class="input-group">
+        <label>Categoría</label>
+        <select name="categoria" required>
+            <option value="">Selecciona</option>
+            {% for categoria in categorias %}
+                <option value="{{ categoria.id }}">
+                    {{ categoria.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- BOTÓN -->
+    <div class="form-actions">
+        <button type="submit" class="sidebar-btn">
+            Publicar receta
+        </button>
+    </div>
+
+</form>
+</div>
+
+<script>
+function previewFile(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            document.getElementById("previewImagen").src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function previewURL(input) {
+    if (input.value) {
+        document.getElementById("previewImagen").src = input.value;
+    }
+}
+
+document.getElementById("titulo").addEventListener("input", e => {
+    document.getElementById("previewTitulo").innerText =
+        e.target.value || "Título de la receta";
+});
+
+document.getElementById("descripcion").addEventListener("input", e => {
+    document.getElementById("previewDescripcion").innerText =
+        e.target.value || "Descripción breve de tu receta...";
+});
+</script>
+
+{% endblock %}
+

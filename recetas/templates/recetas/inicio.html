@@ -1,0 +1,107 @@
+{% extends "recetas/base.html" %}
+{% load static %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+<div class="section-title">
+    <h2>Mis Recetas</h2>
+    
+</div>
+
+<!-- ================= TARJETAS ================= -->
+<section class="recetas">
+
+    {% for receta in recetas %}
+    <article class="card">
+
+      <img
+    src="{% if receta.imagen %}
+            {% if receta.imagen|stringformat:'s'|slice:':4' == 'http' %}
+                {{ receta.imagen }}
+            {% else %}
+                {{ receta.imagen.url }}
+            {% endif %}
+         {% else %}
+            https://images.unsplash.com/photo-1546549039-49b9a2c09b1a
+         {% endif %}"
+    alt="{{ receta.titulo }}"
+>
+
+
+        <div class="card-content">
+            <span class="card-category">
+                {{ receta.categoria.nombre }}
+            </span>
+
+            <h3>{{ receta.titulo }}</h3>
+
+            <p>
+                {{ receta.descripcion|truncatechars:90 }}
+            </p>
+
+            <button
+                type="button"
+                class="sidebar-btn"
+                onclick="abrirModal(
+                    '{{ receta.titulo|escapejs }}',
+                    '{{ receta.imagen|escapejs }}',
+                    '{{ receta.ingredientes|escapejs }}',
+                    '{{ receta.pasos|escapejs }}'
+                )"
+            >
+                Ver receta
+            </button>
+        </div>
+    </article>
+    {% empty %}
+        <p style="grid-column:1/-1; text-align:center;">
+            Aún no has subido recetas.
+        </p>
+    {% endfor %}
+
+</section>
+
+<!-- ================= MODAL ================= -->
+<div class="receta-modal-overlay" id="recetaModal">
+
+    <div class="receta-modal">
+
+        <button class="modal-close" onclick="cerrarModal()">×</button>
+
+        <img id="modalImg" alt="Imagen receta">
+
+        <div class="modal-content">
+            <h2 id="modalTitulo"></h2>
+
+            <div class="modal-section">
+                <h4>Ingredientes</h4>
+                <p id="modalIngredientes"></p>
+            </div>
+
+            <div class="modal-section">
+                <h4>Instrucciones</h4>
+                <p id="modalPasos"></p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= JS MODAL ================= -->
+<script>
+function abrirModal(titulo, imagen, ingredientes, pasos) {
+    document.getElementById("modalTitulo").innerText = titulo;
+    document.getElementById("modalImg").src = imagen;
+    document.getElementById("modalIngredientes").innerText = ingredientes;
+    document.getElementById("modalPasos").innerText = pasos;
+    document.getElementById("recetaModal").style.display = "flex";
+}
+
+function cerrarModal() {
+    document.getElementById("recetaModal").style.display = "none";
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "recetas/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/editar_recet.css' %}">
+
+<h1 class="titulo-pagina">Editar Receta</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Título:</label>
+    <input type="text" name="titulo" value="{{ receta.titulo }}" required>
+
+    <label>Descripción:</label>
+    <textarea name="descripcion" required>{{ receta.descripcion }}</textarea>
+
+    <label>Ingredientes (cada línea un ingrediente):</label>
+    <textarea name="ingredientes" required>{{ receta.ingredientes }}</textarea>
+
+    <label>Pasos (cada línea un paso):</label>
+    <textarea name="pasos" required>{{ receta.pasos }}</textarea>
+
+    <label>Categoría:</label>
+    <select name="categoria">
+        {% for categoria in categorias %}
+            <option value="{{ categoria.id }}" {% if receta.categoria.id == categoria.id %}selected{% endif %}>
+                {{ categoria.nombre }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Imagen (archivo o URL):</label>
+    <input type="file" name="imagen_archivo">
+    <input type="text" name="imagen_url" placeholder="URL de la imagen">
+
+    <button type="submit" class="btn-detalle">Guardar Cambios</button>
+</form>
+
+{% endblock %}
