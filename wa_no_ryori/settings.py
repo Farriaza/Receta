@@ -11,22 +11,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # =====================================================
 SECRET_KEY = os.getenv(
     'DJANGO_SECRET_KEY',
-    'django-insecure-dev-key-only'
+    'django-insecure-dev-only'
 )
 
-DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
+DEBUG = False  # PRODUCCIÓN
 
-ALLOWED_HOSTS = os.getenv(
-    'DJANGO_ALLOWED_HOSTS',
-    'receta-1.onrender.com'
-).split(',')
+ALLOWED_HOSTS = [
+    'receta-1.onrender.com',
+]
 
-# Render corre detrás de proxy HTTPS
+# Render usa proxy HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+# =====================================================
+# CSRF / COOKIES (CRÍTICO PARA RENDER)
+# =====================================================
 CSRF_TRUSTED_ORIGINS = [
     'https://receta-1.onrender.com',
 ]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 # =====================================================
 # APPLICATIONS
