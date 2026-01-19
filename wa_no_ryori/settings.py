@@ -1,14 +1,14 @@
 from pathlib import Path
 import os
 
-# =========================
+# =====================================================
 # BASE
-# =========================
+# =====================================================
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# =========================
+# =====================================================
 # SECURITY
-# =========================
+# =====================================================
 SECRET_KEY = os.getenv(
     'DJANGO_SECRET_KEY',
     'django-insecure-dev-key-only'
@@ -21,16 +21,16 @@ ALLOWED_HOSTS = os.getenv(
     'receta-1.onrender.com'
 ).split(',')
 
-# Render usa proxy (OBLIGATORIO)
+# Render corre detrás de proxy HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 CSRF_TRUSTED_ORIGINS = [
     'https://receta-1.onrender.com',
 ]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# =========================
+# =====================================================
 # APPLICATIONS
-# =========================
+# =====================================================
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     'recetas',
 ]
 
-# =========================
+# =====================================================
 # MIDDLEWARE
-# =========================
+# =====================================================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,15 +55,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# =========================
-# URLS & TEMPLATES
-# =========================
+# =====================================================
+# URLS / TEMPLATES
+# =====================================================
 ROOT_URLCONF = 'wa_no_ryori.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # preparado para producción
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,9 +77,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'wa_no_ryori.wsgi.application'
 
-# =========================
+# =====================================================
 # DATABASE
-# =========================
+# =====================================================
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -87,9 +87,9 @@ DATABASES = {
     }
 }
 
-# =========================
+# =====================================================
 # PASSWORD VALIDATION
-# =========================
+# =====================================================
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -97,24 +97,24 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# =========================
-# I18N
-# =========================
+# =====================================================
+# INTERNATIONALIZATION
+# =====================================================
 LANGUAGE_CODE = 'es-cl'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# =========================
+# =====================================================
 # STATIC & MEDIA
-# =========================
+# =====================================================
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# =========================
-# DEFAULT PK
-# =========================
+# =====================================================
+# DEFAULT PRIMARY KEY
+# =====================================================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
