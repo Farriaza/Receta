@@ -1,6 +1,6 @@
-asgiref==3.11.0
-Django==6.0.1
-pillow==12.1.0
-sqlparse==0.5.5
-tzdata==2025.3
+Django==4.2.7
+asgiref==3.8.1
+pillow==10.4.0
+sqlparse==0.5.1
+tzdata==2024.1
 whitenoise==6.6.0
