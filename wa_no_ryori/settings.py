@@ -14,7 +14,8 @@ SECRET_KEY = os.getenv(
     'django-insecure-dev-only'
 )
 
-DEBUG = False  # PRODUCCIÓN
+# WARNING: DEBUG=True is for local testing only. Do NOT use in production.
+DEBUG = True  # DEVELOPMENT / testing
 
 ALLOWED_HOSTS = [
     'receta-1.onrender.com',
