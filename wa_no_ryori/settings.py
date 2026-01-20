@@ -1,45 +1,25 @@
+
 from pathlib import Path
 import os
 
-# =====================================================
-# BASE
-# =====================================================
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# =====================================================
-# SECURITY
-# =====================================================
-SECRET_KEY = os.getenv(
-    'DJANGO_SECRET_KEY',
-    'django-insecure-dev-only'
-)
 
-# WARNING: DEBUG=True is for local testing only. Do NOT use in production.
-DEBUG = True  # DEVELOPMENT / testing
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-ALLOWED_HOSTS = [
-    'receta-1.onrender.com',
-]
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-x9%r29^if$-uog8y6vo#3^$v#cy_8wh7d!_sf^9@ae^nn7bg3k'
 
-# Render usa proxy HTTPS
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-# =====================================================
-# CSRF / COOKIES
-# =====================================================
-CSRF_TRUSTED_ORIGINS = [
-    'https://receta-1.onrender.com',
-]
+ALLOWED_HOSTS = []
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SAMESITE = 'Lax'
+# Application definition
 
-# =====================================================
-# APPLICATIONS
-# =====================================================
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,17 +27,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'recetas',
 ]
 
-# =====================================================
-# MIDDLEWARE
-# =====================================================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,15 +40,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# =====================================================
-# URLS / TEMPLATES
-# =====================================================
 ROOT_URLCONF = 'wa_no_ryori.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,9 +59,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'wa_no_ryori.wsgi.application'
 
-# =====================================================
-# DATABASE
-# =====================================================
+
+# Database
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -98,41 +70,53 @@ DATABASES = {
     }
 }
 
-# =====================================================
-# PASSWORD VALIDATION
-# =====================================================
+
+# Password validation
+# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
-# =====================================================
-# INTERNATIONALIZATION
-# =====================================================
-LANGUAGE_CODE = 'es-cl'
+
+# Internationalization
+# https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
 TIME_ZONE = 'UTC'
+
 USE_I18N = True
+
 USE_TZ = True
 
-# =====================================================
-# STATIC FILES (RENDER + WHITENOISE)
-# =====================================================
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_STORAGE = (
-    'whitenoise.storage.CompressedManifestStaticFilesStorage'
-)
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-# =====================================================
-# MEDIA FILES
-# =====================================================
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+STATIC_URL = 'static/'
 
-# =====================================================
-# DEFAULT PRIMARY KEY
-# =====================================================
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Al final de tu archivo settings.py
+
+# URL pública para acceder a los archivos multimedia
+MEDIA_URL = '/media/'
+
+# Ruta física en el servidor donde se almacenarán los archivos
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
